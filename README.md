@@ -305,18 +305,51 @@ if __name__ == "__main__":
      ```
 
 2. **Run the Script**
-   - Execute the script with the desired severity levels:
+     - Execute the script using the following command structure:
+     ```
+     python prowler_processor.py -s [severity_flags]
+     ```
+   - The `-s` or `--severity` option allows you to specify which severity levels to include in the processed results.
+   
+   Severity flags breakdown:
+   - `c`: Critical
+   - `h`: High
+   - `m`: Medium
+   - `l`: Low
+
+   You can combine these flags in any order. Here are some examples:
+
+   - To include all severity levels:
      ```
      python prowler_processor.py -s chml
      ```
-   - This will process all JSON files in the `input_scans` directory and include findings of Critical, High, Medium, and Low severity.
-   - You can adjust the severity levels as needed (e.g., `python prowler_processor.py -s ch` for only Critical and High).
+
+   - To include only Critical and High severity findings:
+     ```
+     python prowler_processor.py -s ch
+     ```
+
+   - To include Medium and Low severity findings:
+     ```
+     python prowler_processor.py -s ml
+     ```
+
+   - To include Critical, High, and Medium severity findings:
+     ```
+     python prowler_processor.py -s chm
+     ```
+
+   The order of the letters doesn't matter, so `-s chml` is the same as `-s lmhc`.
+
+   If you don't specify any severity flags, the script will default to including all severity levels.
 
 3. **Retrieve the Results**
    - After the script completes, you'll find two new files in the `output` directory:
      - `compiled_unique_findings.json`: A JSON file containing the compiled findings.
      - `compiled_unique_findings.xlsx`: An Excel file with the formatted findings.
    - You can download these files from the Cloud9 file browser (right-click > Download) or use AWS CLI commands to copy them to an S3 bucket for easier access.
+
+Remember, filtering by severity allows you to focus on the most critical issues first, or to create reports tailored to specific security priorities.
 
 ## Part 4: Cleaning Up
 
