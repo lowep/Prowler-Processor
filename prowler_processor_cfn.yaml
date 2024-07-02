@@ -1,0 +1,47 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'CloudFormation template for Prowler Scan Processor Environment'
+
+Resources:
+  ProwlerProcessorCloud9:
+    Type: AWS::Cloud9::EnvironmentEC2
+    Properties:
+      Name: ProwlerProcessorEnvironment
+      Description: Cloud9 Environment for Prowler Scan Processor
+      InstanceType: t3.small
+      AutomaticStopTimeMinutes: 30
+      ImageId: amazonlinux-2-x86_64
+      ConnectionType: CONNECT_SSM
+
+  ProwlerProcessorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: 
+                - ec2.amazonaws.com
+                - cloud9.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSCloud9User
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+      Policies:
+        - PolicyName: Cloud9Setup
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudformation:DescribeStackResource
+                  - cloudformation:SignalResource
+                Resource: "*"
+
+Outputs:
+  Cloud9EnvironmentURL:
+    Description: URL to access the Cloud9 Environment
+    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/cloud9/ide/${ProwlerProcessorCloud9}"
+  Cloud9EnvironmentId:
+    Description: ID of the Cloud9 Environment
+    Value: !Ref ProwlerProcessorCloud9
