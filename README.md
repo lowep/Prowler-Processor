@@ -1,5 +1,7 @@
 # Prowler-Processor
-This solution deploys an AWS Cloud9 instance that will be configured to ingest multiple prowler scans and combine them into one document with the categories presorted and redundant findings removed.
+The Prowler Scan Processor is a powerful tool designed to streamline the analysis of AWS security assessments conducted with Prowler. This solution automates the consolidation and deduplication of findings from multiple Prowler scans, offering a comprehensive view of your AWS security posture. It generates both JSON and formatted Excel outputs, enhancing readability with bullet-pointed descriptions and structured resource information. 
+
+The processor allows for customizable severity-based filtering, enabling teams to focus on critical issues. With its cloud-native design using AWS CloudFormation and Cloud9, it ensures easy deployment and scalability. Whether you're conducting regular security audits, preparing for compliance assessments, or tracking security improvements over time, the Prowler Scan Processor transforms raw scan data into actionable insights, significantly improving your ability to manage and enhance AWS security.
 
 # Detailed Deployment Guide for Prowler Scan Processor
 
